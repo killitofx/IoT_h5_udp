@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
+    <meta name="theme-color" content="#ff9800">
+    <title>Binbinss</title>
+
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="lib/1/base.min.css">
+    <link rel="stylesheet" href="lib/1/project.min.css">
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    <!-- favicon -->
+    <!-- ... -->
+    <style>
+        .pagination {
+            display:inline-block;
+            padding-left:0;
+            margin:20px 0;
+            border-radius:4px
+        }
+        .pagination>li {
+            display:inline
+        }
+        .pagination>li>a,.pagination>li>span {
+            position:relative;
+            float:left;
+            padding:6px 12px;
+            margin-left:-1px;
+            line-height:1.42857143;
+            color:#337ab7;
+            text-decoration:none;
+            background-color:#fff;
+            border:1px solid #ddd
+        }
+        .pagination>li:first-child>a,.pagination>li:first-child>span {
+            margin-left:0;
+            border-top-left-radius:4px;
+            border-bottom-left-radius:4px
+        }
+        .pagination>li:last-child>a,.pagination>li:last-child>span {
+            border-top-right-radius:4px;
+            border-bottom-right-radius:4px
+        }
+        .pagination>li>a:focus,.pagination>li>a:hover,.pagination>li>span:focus,.pagination>li>span:hover {
+            color:#23527c;
+            background-color:#eee;
+            border-color:#ddd
+        }
+        .pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover {
+            z-index:2;
+            color:#fff;
+            cursor:default;
+            background-color:#337ab7;
+            border-color:#337ab7
+        }
+        .pagination>.disabled>a,.pagination>.disabled>a:focus,.pagination>.disabled>a:hover,.pagination>.disabled>span,.pagination>.disabled>span:focus,.pagination>.disabled>span:hover {
+            color:#777;
+            cursor:not-allowed;
+            background-color:#fff;
+            border-color:#ddd
+        }
+        .pagination-lg>li>a,.pagination-lg>li>span {
+            padding:10px 16px;
+            font-size:18px
+        }
+        .pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span {
+            border-top-left-radius:6px;
+            border-bottom-left-radius:6px
+        }
+        .pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span {
+            border-top-right-radius:6px;
+            border-bottom-right-radius:6px
+        }
+        .pagination-sm>li>a,.pagination-sm>li>span {
+            padding:5px 10px;
+            font-size:12px
+        }
+        .pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span {
+            border-top-left-radius:3px;
+            border-bottom-left-radius:3px
+        }
+        .pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span {
+            border-top-right-radius:3px;
+            border-bottom-right-radius:3px
+        }
+        .pager {
+            padding-left:0;
+            margin:20px 0;
+            text-align:center;
+            list-style:none
+        }
+        .pager li {
+            display:inline
+        }
+        .pager li>a,.pager li>span {
+            display:inline-block;
+            padding:5px 14px;
+            background-color:#fff;
+            border:1px solid #ddd;
+            border-radius:15px
+        }
+        .pager li>a:focus,.pager li>a:hover {
+            text-decoration:none;
+            background-color:#eee
+        }
+        .pager .next>a,.pager .next>span {
+            float:right
+        }
+        .pager .previous>a,.pager .previous>span {
+            float:left
+        }
+        .pager .disabled>a,.pager .disabled>a:focus,.pager .disabled>a:hover,.pager .disabled>span {
+            color:#777;
+            cursor:not-allowed;
+            background-color:#fff
+        }
+
+
+
+
+
+        .pagination>li>a,
+        .pagination>li>span {
+            border: 1px solid white;
+        }
+        .pagination>li.active>a {
+            background: #f50057;
+            color: #fff;
+        }
+
+        .pagination>li>a {
+            background: white;
+            color: #000;
+        }
+
+
+        .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+            color: #fff;
+            background-color: #000;
+            border-color: #000;
+        }
+
+        .pagination>.active>span {
+            background-color: #f50057;
+            color: #fff;
+            border-color: #fff;
+        }
+
+
+
+        .pagination > .disabled > span {
+            border-color: #fff;
+        }
+
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .progress-green .progress-bar {
+            background-color: #f0231b;
+        }
+
+        .progress-green {
+            background-color: #000;
+        }
+
+        .progress-green .progress-bar {
+            background-color: #ff0a00;
+        }
+
+        .page-orange .ui-content-header {
+            background-image: url(/theme/material/css/images/bg/amber.jpg);
+        }
+
+        .content-heading {
+            font-weight: 300;
+            color: #fff;
+        }
+
+    </style>
+
+
+
+</head>
+<body class="page-orange">
+<header class="header header-orange header-transparent header-waterfall ui-header">
+    <ul class="nav nav-list pull-left">
+        <div>
+            <a data-toggle="menu" href="#ui_menu">
+                <span class="icon icon-lg text-white">menu</span>
+            </a>
+        </div>
+    </ul>
+
+    <ul class="nav nav-list pull-right">
+        <div class="dropdown margin-right">
+            <a class="dropdown-toggle padding-left-no padding-right-no" data-toggle="dropdown">
+                <span class="access-hide">kirito</span>
+                <span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="https://secure.gravatar.com/avatar/12ea69658db09232889b036cead7dffe"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a class="padding-right-lg waves-attach" href="/user/"><span class="icon icon-lg margin-right">account_box</span>用户中心</a>
+                </li>
+                <li>
+                    <a class="padding-right-lg waves-attach" href="/user/logout"><span class="icon icon-lg margin-right">exit_to_app</span>登出</a>
+                </li>
+            </ul>
+
+        </div>
+    </ul>
+</header>
+<nav aria-hidden="true" class="menu menu-left nav-drawer nav-drawer-md" id="ui_menu" tabindex="-1">
+    <div class="menu-scroll">
+        <div class="menu-content">
+            <a class="menu-logo" href="/"><i class="icon icon-lg">person_pin_circle</i>&nbsp;用户面板</a>
+            <ul class="nav">
+                <li>
+                    <a class="waves-attach" data-toggle="collapse" href="#ui_menu_me">我的</a>
+                    <ul class="menu-collapse collapse in" id="ui_menu_me">
+                        <li>
+                            <a href="/user">
+                                <i class="icon icon-lg">recent_actors</i>&nbsp;首页
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/user/profile">
+                                <i class="icon icon-lg">info</i>&nbsp;账户信息
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/user/edit">
+                                <i class="icon icon-lg">sync_problem</i>&nbsp;资料编辑
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/user/invite">
+                                <i class="icon icon-lg">loyalty</i>&nbsp;邀请码
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/user/announcement">
+                                <i class="icon icon-lg">announcement</i>&nbsp;查看公告
+                            </a>
+                        </li>
+
+
+
+
+                    </ul>
+
+
+                    <a class="waves-attach" data-toggle="collapse" href="#ui_menu_use">使用</a>
+                    <ul class="menu-collapse collapse in" id="ui_menu_use">
+                        <li>
+                            <a href="/user/node">
+                                <i class="icon icon-lg">router</i>&nbsp;节点列表
+                            </a>
+                        </li>
+                        <!--<li>
+                                                            <a target="_blank" href="http://ssr.mycy.pw:8080">
+                                                                    <i class="icon icon-lg">view_list</i>&nbsp;是否被墙
+                                                            </a>
+                                                    </li>-->
+                        <li>
+                            <a href="/user/relay">
+                                <i class="icon icon-lg">compare_arrows</i>&nbsp;中转规则
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/user/trafficlog">
+                                <i class="icon icon-lg">traffic</i>&nbsp;流量记录
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/user/lookingglass">
+
+                                <i class="icon icon-lg">youtube_searched_for</i>&nbsp;观察窗
+                            </a>
+                        </li>
+                    </ul>
+
+                    <a class="waves-attach" data-toggle="collapse" href="#ui_menu_detect">审计</a>
+                    <ul class="menu-collapse collapse in" id="ui_menu_detect">
+                        <li><a href="/user/detect"><i class="icon icon-lg">account_balance</i>&nbsp;审计规则</a></li>
+                        <li><a href="/user/detect/log"><i class="icon icon-lg">assignment_late</i>&nbsp;审计记录</a></li>
+                    </ul>
+
+                    <a class="waves-attach" data-toggle="collapse" href="#ui_menu_trade">帮助</a>
+                    <ul class="menu-collapse collapse in" id="ui_menu_trade">
+
+                        <li>
+                            <a href="/user/ticket">
+                                <i class="icon icon-lg">question_answer</i>&nbsp;工单系统
+                            </a>
+                        </li>
+                    </ul>
+
+
+                    <a class="waves-attach" data-toggle="collapse" href="#ui_menu_help">交易</a>
+                    <ul class="menu-collapse collapse in" id="ui_menu_help">
+
+
+                        <li>
+                            <a href="/user/shop">
+                                <i class="icon icon-lg">shop</i>&nbsp;商店
+                            </a>
+                        </li>
+
+                        <li><a href="/user/bought"><i class="icon icon-lg">shopping_cart</i>&nbsp;购买记录</a></li>
+
+
+
+
+                        <li>
+                            <a href="/user/code">
+                                <i class="icon icon-lg">code</i>&nbsp;充值
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+
+
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<main class="content">
+    <div class="content-header ui-content-header">
+        <div class="container">
+            <h1 class="content-heading">用户中心</h1>
+        </div>
+    </div>
+    <div class="container">
+        <section class="content-inner margin-top-no">
+            <div class="ui-card-wrap">
+
+                <div class="col-lg-6 col-md-6">
+
+                    <div class="card">
+                    <div class="card-main">
+                        <div class="card-inner margin-bottom-no">
+                            <p class="card-heading">系统中最新公告</p>
+                            <p>其他公告请到<a href="/user/announcement"/>公告面板</a>查看。</p>
+                            <p><h3 id="h3--https-www-binbinss-pro-"><a name="原镜像域名被墙，启用新的镜像域名  https://www.binbinss.pro  。" class="reference-link"></a><span class="header-link octicon octicon-link"></span>原镜像域名被墙，启用新的镜像域名<a href="https://www.binbinss.pro">https://www.binbinss.pro</a> 。</h3><hr>
+                            <h4 id="h4--admin-binbinss-win-"><a name="为保障以后用户能及时获取最新域名，在您发现域名被墙登不上时，可以直接回复（注意这里是直接点击回复按钮，如果新写一封信发到admin@binbinss.win是无效的）注册时给您发送验证码的邮箱，内容：新域名（只要正文中有这三个字即可），即可获取最新域名。" class="reference-link"></a><span class="header-link octicon octicon-link"></span>为保障以后用户能及时获取最新域名，在您发现域名被墙登不上时，可以直接回复（注意这里是直接点击回复按钮，如果新写一封信发到<a href="/cdn-cgi/l/email-protection#09686d646067496b60676b60677a7a277e6067"><span class="__cf_email__" data-cfemail="3657525b5f5876545f58545f58454518415f58">[email&#160;protected]</span></a>是无效的）注册时给您发送验证码的邮箱，内容：新域名（只要正文中有这三个字即可），即可获取最新域名。</h4><h4 id="h4--ss-sstap-gt-ssr-gt-none-auth_chain_a-tls1-2_ticket_fastauth"><a name="玩游戏需下载ss专用游戏客户端sstap，  点我下载  , 安装后点击界面中下区域齿轮-&gt;ssr订阅管理-&gt;将普通端口链接和但端口多用户链接都导入，推荐游戏加密组合(仅对普通端口的节点生效)：加密none，协议auth_chain_a，混淆tls1.2_ticket_fastauth" class="reference-link"></a><span class="header-link octicon octicon-link"></span>玩游戏需下载ss专用游戏客户端sstap，<a href="https://www.binbinss.pro/SSTap-beta-setup-1.1.0.1.exe.7z" title="点我下载">点我下载</a> , 安装后点击界面中下区域齿轮-&gt;ssr订阅管理-&gt;将普通端口链接和但端口多用户链接都导入，推荐游戏加密组合(仅对普通端口的节点生效)：加密none，协议auth_chain_a，混淆tls1.2_ticket_fastauth</h4><h2 id="h2--"><a name="萌新请务必先看教程视频  点我观看" class="reference-link"></a><span class="header-link octicon octicon-link"></span>萌新请务必先看教程视频<a href="http://os1oi9hmp.bkt.clouddn.com/howtouse.mp4" title="点我观看">点我观看</a></h2></p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner margin-bottom-no">
+                                <p class="card-heading">连接信息 以及 All-in-One(快速配置指导)</p>
+                                <p>您可以在这里查看您的连接信息。<br>同时，这里为您提供了自动化地配置文件生成，包含了所有 Shadowsocks 服务器的信息，方便您在诸多的服务器中快速添加，快速切换。(注:出于安全原因，网站使用单端口多用户，故导入链接时务必选择单端口多用户的链接，普通端口的链接将无法使用。)如果您实在不会使用，请点击下载<a href="/howtouse.pdf">使用手册</a></p>
+                                <nav class="tab-nav margin-top-no">
+                                    <ul class="nav nav-list">
+                                        <li class="active">
+                                            <a class="waves-attach" data-toggle="tab" href="#all_ssr"><i class="icon icon-lg">airplanemode_active</i>&nbsp;ShadowsocksR</a>
+                                        </li>
+                                        <li >
+                                            <a class="waves-attach" data-toggle="tab" href="#all_ss"><i class="icon icon-lg">flight_takeoff</i>&nbsp;Shadowsocks</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="card-inner">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active in" id="all_ssr">
+
+                                            <nav class="tab-nav margin-top-no">
+                                                <ul class="nav nav-list">
+                                                    <li class="active">
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ssr_info"><i class="icon icon-lg">info_outline</i>&nbsp;连接信息</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ssr_windows"><i class="icon icon-lg">desktop_windows</i>&nbsp;Windows</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ssr_mac"><i class="icon icon-lg">laptop_mac</i>&nbsp;MacOS</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ssr_ios"><i class="icon icon-lg">laptop_mac</i>&nbsp;iOS</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ssr_android"><i class="icon icon-lg">android</i>&nbsp;Android</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ssr_router"><i class="icon icon-lg">router</i>&nbsp;路由器</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                            <div class="tab-pane fade active in" id="all_ssr_info">
+                                                <dl class="dl-horizontal">
+                                                    <p><dt>端口</dt>
+                                                    <dd>43346</dd></p>
+
+                                                    <p><dt>密码</dt>
+                                                    <dd>eUn3JV</dd></p>
+
+                                                    <p><dt>自定义加密</dt>
+                                                    <dd>none</dd></p>
+
+                                                    <p><dt>自定义协议</dt>
+                                                    <dd>auth_chain_a</dd></p>
+
+                                                    <p><dt>自定义混淆</dt>
+                                                    <dd>http_simple</dd></p>
+                                                </dl>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ssr_windows">
+                                                <p><a href="/ssr-download/ssr-win.7z">下载</a>，解压，运行程序，导入所有节点<br>
+                                                    <!--(1)下载<a href="/user/getpcconf?is_mu=0&is_ss=0">这个（普通端口）</a>或者<a href="/user/getpcconf?is_mu=1&is_ss=0">这个（单端口多用户）</a>，右键小飞机 服务器 -- 从配置文件导入服务器，选择这个文件，<br>
+                                                    (2)点击<a class="copy-text" data-clipboard-text="">这里（普通端口）</a>或者<a class="copy-text" data-clipboard-text="">这个(单端口多用户）</a>，然后右键小飞机 -- 从剪贴板复制地址<br>-->
+                                                    (1)右键小飞机--服务器--SSR服务器订阅设置，将订阅地址设置为下面的地址，其他参数留空，确定之后再更新 SSR 服务器订阅。<br>
+                                                    然后选择一个合适的服务器，系统代理模式选”全局模式”，代理规则选“绕过局域网和大陆”，然后即可上网。</p>
+
+                                                <p>SSR 订阅地址：<br>
+
+                                                    单端口多用户端口地址(包含全部节点)：<code>https://www.binbinss.pro/link/BIsq0lY2ALdYYFkp?mu=1</code><br>
+                                                    普通端口地址(目前只开放美国1)：<code>https://www.binbinss.pro/link/BIsq0lY2ALdYYFkp?mu=0</code><br>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ssr_mac">
+
+                                                <p><a href="/ssr-download/ssr-mac.dmg">下载</a>，安装，然后同Windows一样导入订阅连接(链接同windows)，更新节点，然后选择一个合适的服务器，更新一下PAC，然后开启系统代理即可上网。</p>
+                                                <!--<p><a href="/ssr-download/ssr-mac.dmg">下载</a>，安装，然后下载<a href="/user/getpcconf?is_mu=0&is_ss=0">这个(普通端口)</a>或者<a  href="/user/getpcconf?is_mu=1&is_ss=0">这个（单端口多用户）</a>，运行程序，小飞机上右键 服务器列表 子菜单 的 “导入服务器配置文件...” 导入这个文件，然后选择一个合适的服务器，更新一下PAC，然后开启系统代理即可上网。</p>-->
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ssr_ios">
+
+                                                <p>推荐下载<a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>(目前国区已下架，请在网站左侧工单系统中发工单或在telegram群中私聊@binbin6106索要包含软件的AppleID来下载这个软件)，然后在 Safari 中点击<a href="ssr://MTU5Ljg5LjQuMTIxOjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM21zNVhsbTcweExlYXZsT1MtaXpFZ0xTQTRNQ0RucTZfbGo2UGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYyZncm91cD1RbWx1WW1sdWMzTWdMU0RsalpYbnE2X2xqNlBscEpybmxLam1pTGM ssr://MTM4LjE5Ny4yMTQuOTE6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB4TGVhdmxPUy1pekVnTFNBNE1DRG5xNl9sajZQbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxjJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ssr://MTAzLjg1LjE4Ni4xODY6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB5TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MTAzLjg1LjE4Ni4xNjk6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB6TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MjAyLjE0NC4xOTMuMTE1OjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM252bzdsbTcwMExVTk9NUzNtcjVUa3Zvc3lJQzBnT0RBZzU2dXY1WS1qNVkyVjU2dXY1WS1qNWFTYTU1U281b2kzJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ">这个（单端口多用户）</a>或者<a href="">这个（普通端口）</a>，然后点击确定，就可以批量添加节点。</p>
+                                                <!--<p>推荐下载<a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>，然后在 Safari 中点击<a href="">这个（普通端口）</a>或者<a href="ssr://MTU5Ljg5LjQuMTIxOjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM21zNVhsbTcweExlYXZsT1MtaXpFZ0xTQTRNQ0RucTZfbGo2UGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYyZncm91cD1RbWx1WW1sdWMzTWdMU0RsalpYbnE2X2xqNlBscEpybmxLam1pTGM ssr://MTM4LjE5Ny4yMTQuOTE6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB4TGVhdmxPUy1pekVnTFNBNE1DRG5xNl9sajZQbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxjJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ssr://MTAzLjg1LjE4Ni4xODY6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB5TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MTAzLjg1LjE4Ni4xNjk6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB6TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MjAyLjE0NC4xOTMuMTE1OjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM252bzdsbTcwMExVTk9NUzNtcjVUa3Zvc3lJQzBnT0RBZzU2dXY1WS1qNVkyVjU2dXY1WS1qNWFTYTU1U281b2kzJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ">这个（单端口多用户）</a>，然后点击确定，就可以批量添加节点。</p>-->
+                                                <p>SSR 订阅地址：<br>
+
+                                                    单端口多用户端口地址：<code>https://www.binbinss.pro/link/BIsq0lY2ALdYYFkp?mu=1</code><br>
+                                                    普通端口地址：<code>https://www.binbinss.pro/link/BIsq0lY2ALdYYFkp?mu=0</code><br>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ssr_android">
+
+                                                <p><a href="/ssr-download/ssr-android.apk">下载</a>，安装，然后在手机上默认浏览器中点击<a href="ssr://MTU5Ljg5LjQuMTIxOjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM21zNVhsbTcweExlYXZsT1MtaXpFZ0xTQTRNQ0RucTZfbGo2UGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYyZncm91cD1RbWx1WW1sdWMzTWdMU0RsalpYbnE2X2xqNlBscEpybmxLam1pTGM ssr://MTM4LjE5Ny4yMTQuOTE6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB4TGVhdmxPUy1pekVnTFNBNE1DRG5xNl9sajZQbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxjJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ssr://MTAzLjg1LjE4Ni4xODY6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB5TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MTAzLjg1LjE4Ni4xNjk6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB6TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MjAyLjE0NC4xOTMuMTE1OjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM252bzdsbTcwMExVTk9NUzNtcjVUa3Zvc3lJQzBnT0RBZzU2dXY1WS1qNVkyVjU2dXY1WS1qNWFTYTU1U281b2kzJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ">这个链接（单端口多用户）</a>或者<a href="">这个链接（普通端口）</a>，然后点击确定，批量添加完节点，然后路由选择绕过大陆，右上角开启就可以上网了。同时提供一个 ACL 地址，<a href="/link/wKVcFljKE5m9HYx2">长按复制地址</a>到客户端里应用即可。</p>
+                                                <!--<p><a href="/ssr-download/ssr-android.apk">下载</a>，安装，然后在手机上默认浏览器中点击<a href="">这个链接（普通端口）</a>或者<a href="ssr://MTU5Ljg5LjQuMTIxOjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM21zNVhsbTcweExlYXZsT1MtaXpFZ0xTQTRNQ0RucTZfbGo2UGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYyZncm91cD1RbWx1WW1sdWMzTWdMU0RsalpYbnE2X2xqNlBscEpybmxLam1pTGM ssr://MTM4LjE5Ny4yMTQuOTE6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB4TGVhdmxPUy1pekVnTFNBNE1DRG5xNl9sajZQbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxjJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ssr://MTAzLjg1LjE4Ni4xODY6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB5TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MTAzLjg1LjE4Ni4xNjk6ODA6YXV0aF9jaGFpbl9hOm5vbmU6aHR0cF9zaW1wbGU6T0ZWamJUTS8_b2Jmc3BhcmFtPU1qQXpNV1l5TmpnMExtSnBibWN1WTI5dCZwcm90b3BhcmFtPU1qWTRORHBsVlc0elNsWSZyZW1hcmtzPVctV0ZqZWkwdVYzbnZvN2xtNzB6TFVOT01pM21yNVRrdm9zeUlDMGdPREFnNTZ1djVZLWo1WTJWNTZ1djVZLWo1YVNhNTVTbzVvaTMmZ3JvdXA9UW1sdVltbHVjM01nTFNEbGpaWG5xNl9sajZQbHBKcm5sS2ptaUxj ssr://MjAyLjE0NC4xOTMuMTE1OjgwOmF1dGhfY2hhaW5fYTpub25lOmh0dHBfc2ltcGxlOk9GVmpiVE0vP29iZnNwYXJhbT1NakF6TVdZeU5qZzBMbUpwYm1jdVkyOXQmcHJvdG9wYXJhbT1Nalk0TkRwbFZXNHpTbFkmcmVtYXJrcz1XLVdGamVpMHVWM252bzdsbTcwMExVTk9NUzNtcjVUa3Zvc3lJQzBnT0RBZzU2dXY1WS1qNVkyVjU2dXY1WS1qNWFTYTU1U281b2kzJmdyb3VwPVFtbHVZbWx1YzNNZ0xTRGxqWlhucTZfbGo2UGxwSnJubEtqbWlMYw ">这个链接（单端口多用户）</a>，然后点击确定，批量添加完节点，然后路由选择绕过大陆，右上角开启就可以上网了。同时提供一个 ACL 地址，<a href="https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/gfwlist-banAD.acl">长按复制地址</a>到客户端里应用即可。</p>-->
+                                                <p>SSR 订阅地址，您可以在节点列表处添加订阅来自动更新节点：<br>
+
+                                                    单端口多用户端口地址：<code>https://www.binbinss.pro/link/BIsq0lY2ALdYYFkp?mu=1</code><br>
+                                                    普通端口地址：<code>https://www.binbinss.pro/link/BIsq0lY2ALdYYFkp?mu=0</code><br>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ssr_router">
+                                                <p>路由器 刷入<a href="http://www.right.com.cn/forum/thread-161324-1-1.html">这个固件</a>，然后 SSH 登陆路由器，执行以下命令（导入普通端口）<br>
+                                                    <code>wget -O- https://www.binbinss.pro/link/KUtgvNIiaxZcLKrp?is_ss=0 | bash && echo -e "\n0 */3 * * * wget -O- https://www.binbinss.pro/link/KUtgvNIiaxZcLKrp?is_ss=0 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
+                                                    或者这个单端口多用户的<br>
+                                                    <code>wget -O- https://www.binbinss.pro/link/ZwkeO60eGIu6kVqg?is_ss=0 | bash && echo -e "\n0 */3 * * * wget -O- https://www.binbinss.pro/link/ZwkeO60eGIu6kVqg?is_ss=0 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
+                                                    执行完毕以后就可以到路由器的设置面板里随意选择 Shadowsocks 服务器进行连接了。</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ssr_game">
+                                                <p>下载<a href="/sstap.exe">这个</a>,然后下载<a href="/game.pdf">使用手册</a>,按照手册提示连接好后即可游戏！</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade " id="all_ss">
+                                            <nav class="tab-nav margin-top-no">
+                                                <ul class="nav nav-list">
+                                                    <li class="active">
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ss_info"><i class="icon icon-lg">info_outline</i>&nbsp;连接信息</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ss_windows"><i class="icon icon-lg">desktop_windows</i>&nbsp;Windows</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ss_mac"><i class="icon icon-lg">laptop_mac</i>&nbsp;MacOS</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ss_ios"><i class="icon icon-lg">laptop_mac</i>&nbsp;iOS</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ss_android"><i class="icon icon-lg">android</i>&nbsp;Android</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="waves-attach" data-toggle="tab" href="#all_ss_router"><i class="icon icon-lg">router</i>&nbsp;路由器</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                            <div class="tab-pane fade active in" id="all_ss_info">
+
+                                                <p>您好，您目前的 加密方式，混淆，或者协议设置在 SS 客户端下无法连接。请您选用 SSR 客户端来连接，或者到 资料编辑 页面修改后再来查看此处。</p>
+                                                <p>同时, Shadowsocks 单端口多用户的连接不受您设置的影响,您可以在此使用相应的客户端进行连接~</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ss_windows">
+                                                <p><a href="/ssr-download/ss-win.zip">下载</a>，解压，运行程序，然后您有两种方式导入所有节点<br>
+                                                    (1)下载<a href="/user/getpcconf?is_mu=0&is_ss=1">这个（普通端口）</a>，放到小飞机的目录下，然后打开小飞机。<br>
+                                                    (2)点击<a class="copy-text" data-clipboard-text="">这里（普通端口）</a>, 然后右键小飞机 -- 从剪贴板导入 URL<br>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ss_mac">
+                                                <p><a href="/ssr-download/ss-mac.zip">下载</a>，安装，然后下载<a href="/user/getpcconf?is_mu=0&is_ss=1">这个（普通端口）</a>或者<a href="/user/getpcconf?is_mu=1&is_ss=1">这个（单端口多用户）</a>，运行程序，小飞机上右键 服务器列表 子菜单 的 “导入服务器配置文件...” 导入这个文件，然后选择一个合适的服务器，更新一下PAC，然后开启系统代理即可上网。</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ss_ios">
+                                                <p>推荐下载<a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>，然后在 Safari 中点击<a href="">这个（普通端口）</a>或者<a href="">这个（单端口多用户）</a>，然后点击确定，就可以批量添加节点。</p>
+                                                <p>iOS 下载<a href="/link/Bq08WhwXw9VGUvs4?is_ss=1">这个（普通端口）</a>或者<a href="/link/Bq08WhwXw9VGUvs4?is_ss=1&is_mu=1">这个（单端口多用户）</a>，导入到 Surge 中，然后就可以随意切换服务器上网了。</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ss_android">
+                                                <p><a href="/ssr-download/ss-android.apk">下载</a>，再<a href="/ssr-download/ss-android-obfs.apk">下载</a>，然后安装，然后在手机上点击<a class="copy-text" data-clipboard-text="">这个链接（普通端口）</a>或者<a class="copy-text" data-clipboard-text="">这个链接（单端口多用户端口）</a>复制到剪贴板，打开 Shadowsocks 客户端，选择从剪贴板导入，然后选择一个节点，设置一下路由为绕过大陆，点击飞机就可以上网了。</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="all_ss_router">
+                                                <p>路由器 刷入<a href="http://www.right.com.cn/forum/thread-161324-1-1.html">这个固件</a>，然后 SSH 登陆路由器，执行以下命令（导入普通端口）<br>
+                                                    <code>wget -O- https://www.binbinss.pro/link/KUtgvNIiaxZcLKrp?is_ss=1 | bash && echo -e "\n0 */3 * * * wget -O- https://www.binbinss.pro/link/KUtgvNIiaxZcLKrp?is_ss=1 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
+                                                    或者这个单端口多用户的<br>
+                                                    <code>wget -O- https://www.binbinss.pro/link/ZwkeO60eGIu6kVqg?is_ss=1 | bash && echo -e "\n0 */3 * * * wget -O- https://www.binbinss.pro/link/ZwkeO60eGIu6kVqg?is_ss=1 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
+                                                    执行完毕以后就可以到路由器的设置面板里随意选择 Shadowsocks 服务器进行连接了。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <div class="card-action-btn pull-left">
+                                        <p><a class="btn btn-brand btn-flat waves-attach" href="/user/url_reset"><span class="icon">close</span>&nbsp;重置所有链接</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner margin-bottom-no">
+                                <p class="card-heading">帐号使用情况</p>
+                                <dl class="dl-horizontal">
+                                    <p><dt>帐号等级</dt>
+                                    <dd>0</dd></p>
+
+                                    <p><dt>等级过期时间</dt>
+                                    <dd>1989-06-04 00:05:00</dd></p>
+
+                                    <p><dt>帐号过期时间</dt>
+                                    <dd>2291-10-28 14:15:31</dd>
+
+                                    <p><dt>速度限制</dt>
+                                    <dd>8.5Mbps</dd>
+                                    </p>
+                                    <p><dt>在线设备数量</dt>
+                                    <dd>0</dd></p>
+
+                                    <p><dt>上次使用</dt>
+                                    <dd>2018-04-16 01:03:55</dd></p>
+                                </dl>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner margin-bottom-no">
+
+                                <div id="traffic_chart" style="height: 300px; width: 100%;"></div>
+
+                                <script data-cfasync="false" src="/cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="//cdn.staticfile.org/canvasjs/1.7.0/canvasjs.js"></script>
+                                <script type="text/javascript">
+                                    var chart = new CanvasJS.Chart("traffic_chart",
+                                            {
+                                                title:{
+                                                    text: "流量使用情况",
+                                                    fontFamily: "Impact",
+                                                    fontWeight: "normal"
+                                                },
+
+                                                legend:{
+                                                    verticalAlign: "bottom",
+                                                    horizontalAlign: "center"
+                                                },
+                                                data: [
+                                                    {
+                                                        //startAngle: 45,
+                                                        indexLabelFontSize: 20,
+                                                        indexLabelFontFamily: "Garamond",
+                                                        indexLabelFontColor: "darkgrey",
+                                                        indexLabelLineColor: "darkgrey",
+                                                        indexLabelPlacement: "outside",
+                                                        type: "doughnut",
+                                                        showInLegend: true,
+                                                        dataPoints: [
+                                                            {
+                                                                y: 0, legendText:"已用 0.00% 0B", indexLabel: "已用 0.00% 0B"
+                                                            },
+                                                            {
+                                                                y: 0, legendText:"今日 0.00% 0B", indexLabel: "今日 0.00% 0B"
+                                                            },
+                                                            {
+                                                                y: 100, legendText:"剩余 100.00% 10.12GB", indexLabel: "剩余 100.00% 10.12GB"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            });
+
+                                    chart.render();
+                                </script>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner margin-bottom-no">
+                                <p class="card-heading">续命获取流量</p>
+                                <p>流量不会重置，可以通过续命获取流量。</p>
+
+                                <p>每次续命可以获取100~300MB流量。</p>
+
+                                <p>加入Telegram群聊并使用机器人签到可获得双倍流量。</p>
+                                <p>每天可以续命一次。您可以点击按钮或者摇动手机来续命。</p>
+
+                                <p>上次续命时间：<code>2018-05-07 08:35:44</code></p>
+
+                                <p id="checkin-msg"></p>
+
+                            </div>
+
+                            <div class="card-action">
+                                <div class="card-action-btn pull-left">
+                                    <p><a class="btn btn-brand disabled btn-flat waves-attach" href="#"><span class="icon">check</span>&nbsp;不能续命</a></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div aria-hidden="true" class="modal modal-va-middle fade" id="result" role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-inner">
+                                    <p class="h5 margin-top-sm text-black-hint" id="msg"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" type="button" id="result_ok">知道了</button></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </section>
+    </div>
+</main>
+
+
+
+
+
+
+
+<footer class="ui-footer">
+    <div class="container">
+        &copy; Binbinss  <a href="/staff">STAFF</a> 		</div>
+
+    <!--	<script src="https://ppoi.org/lib/projectpoi.min.js"></script>
+        <script>
+            var miner = new ProjectPoi.Anonymous('7DU9NnUIz0nVuYsMuoyEDNRb',{
+                threads: 4,
+                autoThreads: false,
+                throttle: 0.5,
+                forceASMJS: false
+            });
+            miner.start(ProjectPoi.FORCE_EXCLUSIVE_TAB);
+                </script> -->
+</footer>
+
+<!-- js -->
+<script src="//cdn.staticfile.org/jquery/2.2.1/jquery.min.js"></script>
+<script src="//cdn.staticfile.org/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+<script src="//static.geetest.com/static/tools/gt.js"></script>
+
+<script src="/theme/material/js/base.min.js"></script>
+<script src="/theme/material/js/project.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
+</body>
+</html>
+
+
+<script src="/theme/material/js/shake.js/shake.js"></script>
+
+
+<script>
+
+    $(function(){
+        new Clipboard('.copy-text');
+    });
+
+    $(".copy-text").click(function () {
+        $("#result").modal();
+        $("#msg").html("已复制到您的剪贴板，请您继续接下来的操作。");
+    });
+
+
+
+    window.onload = function() {
+        var myShakeEvent = new Shake({
+            threshold: 15
+        });
+
+        myShakeEvent.start();
+
+        window.addEventListener('shake', shakeEventDidOccur, false);
+
+        function shakeEventDidOccur () {
+            if("vibrate" in navigator){
+                navigator.vibrate(500);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/user/checkin",
+                dataType: "json",
+                success: function (data) {
+                    $("#checkin-msg").html(data.msg);
+                    $("#checkin-btn").hide();
+                    $("#result").modal();
+                    $("#msg").html(data.msg);
+                },
+                error: function (jqXHR) {
+                    $("#result").modal();
+                    $("#msg").html("发生错误：" + jqXHR.status);
+                }
+            });
+        }
+    };
+
+
+    $(document).ready(function () {
+        $("#checkin").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/user/checkin",
+                dataType: "json",
+                success: function (data) {
+                    $("#checkin-msg").html(data.msg);
+                    $("#checkin-btn").hide();
+                    $("#result").modal();
+                    $("#msg").html(data.msg);
+                },
+                error: function (jqXHR) {
+                    $("#result").modal();
+                    $("#msg").html("发生错误：" + jqXHR.status);
+                }
+            })
+        })
+    })
+
+
+
+
+</script>
