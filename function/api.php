@@ -151,6 +151,60 @@ if (isset($_GET['token'])) {
 
             }
 
+//            插入基本规则
+            elseif($_GET['obj'] == "b-rule"){
+                if(isset($_GET['father'])&& isset($_GET['son']) && isset($_GET['same'])){
+                    $father=(int)$_GET['father'];
+                    $son=(int)$_GET['son'];
+                    $same = (int)$_GET["same"];
+                    $stmt =$mysqli->prepare( "insert into `rulers`(father,son,same) VALUES(?,?,?)");
+                    $stmt->bind_param("iii",$father,$son,$same);
+                    $stmt->execute();
+                    echo"200";
+                    $stmt->close();
+
+                }
+            }
+//插入高级规则
+            elseif($_GET['obj'] == "a-rule"){
+                if(isset($_GET['father'])&& isset($_GET['tg'])){
+                    $father=(int)$_GET['father'];
+                    $tg=$_GET['tg'];
+                    if (isset($_GET['t_order'])) {
+                        $t_order = $_GET['t_order'];
+                    } else {
+                        $t_order = "pass";}
+                    if (isset($_GET['t_order2'])) {
+                        $t_order2 = $_GET['t_order2'];
+                    } else {
+                        $t_order2 = "pass";}
+                    if (isset($_GET['t_order3'])) {
+                        $t_order3 = $_GET['t_order3'];
+                    } else {
+                        $t_order3 = "pass";}
+                    if (isset($_GET['f_order'])) {
+                        $f_order = $_GET['f_order'];
+                    } else {
+                        $f_order = "pass";}
+                    if (isset($_GET['f_order2'])) {
+                        $f_order2 = $_GET['f_order2'];
+                    } else {
+                        $f_order2 = "pass";}
+                    if (isset($_GET['f_order3'])) {
+                        $f_order3 = $_GET['f_order3'];
+                    } else {
+                        $f_order3 = "pass";}
+                    $adv=1;
+                    $stmt =$mysqli->prepare( "insert into `rulers`(father,advanced,tg,t_order,t_order2,t_order3,f_order,f_order2,f_order3) VALUES(?,?,?,?,?,?,?,?,?)");
+                    $stmt->bind_param("iisssssss",$father,$adv,$tg,$t_order,$t_order2,$t_order3,$f_order,$f_order2,$f_order3);
+                    $stmt->execute();
+                    echo"200";
+                    $stmt->close();
+
+                }
+
+            }
+
         }
 
 //        查找数据
@@ -235,6 +289,8 @@ if (isset($_GET['token'])) {
                     }
                 }
 
+
+
                 //获取所有端口信息
                 else {
                     $sql_select = "select * from  port order by pid";
@@ -248,6 +304,20 @@ if (isset($_GET['token'])) {
 
                 }
 
+            }
+
+            elseif($_GET["obj"]=="rule") {
+                $sql_select = "select * from  `rulers`";
+                $data = array();
+                if ($result = $mysqli->query($sql_select)) {
+                    while ($row = $result->fetch_array()) {
+                        $data[] = array("son" => $row["son"], "father" => $row["father"], "same" => $row["same"], "advanced" =>
+                            $row["advanced"], "tg" => $row["tg"], "t_order" => $row["t_order"], "f_order" => $row["f_order"]
+                        , "t_order2" => $row["t_order2"], "f_order2" => $row["f_order2"], "t_order3" => $row["t_order3"], "f_order3" => $row["f_order3"],"rid"=>$row["rid"]);
+                    }
+                    echo json_encode($data);
+
+                }
             }
 
 //返回所有room
@@ -386,6 +456,18 @@ if (isset($_GET['token'])) {
                 }
             }
 
+//            删除规则
+            elseif($_GET['obj'] == "rule"){
+                if(isset($_GET['rid'])){
+                    $rid=$_GET['rid'];
+                    $stmt = $mysqli->prepare( "delete from `rulers` where rid=?");
+                    $stmt->bind_param("i", $rid);
+                    $stmt->execute();
+                    echo "200";
+                    $stmt->close();
+                }
+            }
+
 
         }
 //修改数据
@@ -414,13 +496,18 @@ if (isset($_GET['token'])) {
 //                        echo("sql_update table ok");
                     echo"200";
 //                    echo"$sql_update";
+                    $sock = socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
+                    $sd_data=array("from" => "php","method"=>"up_all");
+                    $msg=json_encode($sd_data);
+                    $len=strlen($msg);
+                    socket_sendto($sock,$msg,$len,0,'127.0.0.1',9999);
                 } else {
                     echo"$sql_update";
                     echo("sql_update table failed:" . $mysqli->error);
 //                    echo"201";
                 }
             }
-
+//更新状态程序
             elseif(isset($_GET['obj']) && isset($_GET['name']) && isset($_GET['data']) && isset($_GET['id_name']) && isset($_GET['id'])){
                 $obj=$_GET['obj'];
                 $id=$_GET['id'];
@@ -431,7 +518,11 @@ if (isset($_GET['token'])) {
                 if ($mysqli->query($sql_update) === true) {
 //                        echo("sql_update table ok");
                     echo"200";
-//                    echo"$sql_update";
+                    $sock = socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
+                    $sd_data=array("from" => "php","pid"=>$id,"state" => $data,"method"=>"up");
+                    $msg=json_encode($sd_data);
+                    $len=strlen($msg);
+                    socket_sendto($sock,$msg,$len,0,'127.0.0.1',9999);
                 } else {
                     echo"$sql_update";
                     echo("sql_update table failed:" . $mysqli->error);
@@ -439,7 +530,7 @@ if (isset($_GET['token'])) {
                 }
             }
         }
-
+//查找天气数据
         elseif ($_GET['method'] == "weather"){
             $sql_select = "select * from  weather ORDER BY id";
             $data=array();
@@ -451,5 +542,8 @@ if (isset($_GET['token'])) {
             }
         }
     }
+
+
+
     $mysqli->close();
 }
