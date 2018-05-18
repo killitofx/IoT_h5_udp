@@ -6,7 +6,7 @@
  * Time: 9:18
  */
 
-$dbServer='192.169.10.8';
+$dbServer='10.0.0.8';
 $dbUser='iot2';
 $dbPass='Tfve3wVYZHQdU9yz';
 $dbName='iot2';
