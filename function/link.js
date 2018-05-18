@@ -69,7 +69,7 @@ function add_adv(){
     var massage = $('#result');
     var massage_data = $("#msg");
     if(tg!==""){
-        $.get( "../function/api.php", { method: "add",token:1,obj:"a-rule",father:father,tg:tg,t_order:to1,t_order2:to2,t_order3:to3,f_order:fo1,f_order2:fo2,f_order3:fo2}, function( data ) {
+        $.get( "../function/api.php", { method: "add",token:1,obj:"a-rule",father:father,tg:tg,t_order:to1,t_order2:to2,t_order3:to3,f_order:fo1,f_order2:fo2,f_order3:fo3}, function( data ) {
             if(data=="200"){
                 massage_data.text("添加成功");
                 massage.modal({
