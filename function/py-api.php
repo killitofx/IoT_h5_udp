@@ -80,7 +80,33 @@ if (isset($_GET["token"])=="python"){
 
 //    更改change=0
 
+//查询关注列表
+    elseif($_GET['method'] == "fav"){
+        if(isset($_GET['pid'])){
+            $fav=$_GET['pid'];
+            $sql_select="select * from relationship WHERE port_id='$fav'";
+            if ($result = $mysqli->query($sql_select)) {
+                $data = array();
+                while ($row = $result->fetch_array()) {
+                    $data[]=$row["user_id"];
+                }
+                echo json_encode($data);
+            }
+        }
+    }
 
-
+    elseif($_GET['method'] == "name"){
+        if(isset($_GET['pid'])){
+            $pid=$_GET['pid'];
+            $sql_select="select * from port WHERE pid='$pid'";
+            if ($result = $mysqli->query($sql_select)) {
+                $data = array();
+                while ($row = $result->fetch_array()) {
+                    $data[]=$row["p_name"];
+                }
+                echo json_encode($data);
+            }
+        }
+    }
 }
 
